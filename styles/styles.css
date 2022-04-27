@@ -1,4 +1,9 @@
 .btn-primary{
     margin-top: 3em;
     background-color: pink;
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: plum !important;
 }

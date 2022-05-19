@@ -1,4 +1,4 @@
-<include href="views/header.html"></include>
+<?php echo $this->render('views/header.html',NULL,get_defined_vars(),0); ?>
 <body>
 <div class="container">
     <h1>My Diner</h1>
@@ -10,10 +10,10 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Select condiments</label>
             <div class="col-sm-4">
-                <repeat group="{{ @condiments }}" value="{{ @cond }}">
-                    <label><input type="checkbox" name="conds[]" value="{{ @cond }}">
-                        {{ ucfirst(@cond) }}</label><br>
-                </repeat>
+                <?php foreach (($condiments?:[]) as $cond): ?>
+                    <label><input type="checkbox" name="conds[]" value="<?= ($cond) ?>">
+                        <?= (ucfirst($cond)) ?></label><br>
+                <?php endforeach; ?>
             </div>
         </div>
         <div class="col-xs-3 ">

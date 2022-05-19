@@ -1,4 +1,4 @@
-<include href="views/header.html"></include>
+<?php echo $this->render('views/header.html',NULL,get_defined_vars(),0); ?>
 <body>
 <div class="container">
     <h1>My Diner</h1>
@@ -10,12 +10,12 @@
         <div class="form-group">
             <label for="food" class="col-sm-4 control-label">What food would you like to order?</label>
             <div class="col-sm-4"><input class="form-control" type="text"
-                                         name="food" id="food" value="{{ @userFood }}"></div>
+                                         name="food" id="food" value="<?= ($userFood) ?>"></div>
 
             <!-- display error if there is one -->
-            <check if="{{ isset(@errors['food']) }}">
-                <span class="text-danger">{{ @errors['food'] }}</span>
-            </check>
+            <?php if (isset($errors['food'])): ?>
+                <span class="text-danger"><?= ($errors['food']) ?></span>
+            <?php endif; ?>
         </div>
 
         <br>
@@ -24,15 +24,15 @@
         <div class="form-group">
             <label class="col-sm-4 control-label">Select a meal</label>
             <div class="col-sm-4">
-                <repeat group="{{ @meals }}" value="{{ @meal }}">
-                    <label><input type="radio" name="meal" value="{{ @meal }}">
-                        {{ ucfirst(@meal) }}</label><br>
-                </repeat>
+                <?php foreach (($meals?:[]) as $meal): ?>
+                    <label><input type="radio" name="meal" value="<?= ($meal) ?>">
+                        <?= (ucfirst($meal)) ?></label><br>
+                <?php endforeach; ?>
             </div>
             <!-- display error if there is one -->
-            <check if="{{ isset(@errors['meal']) }}">
-                <span class="text-danger">{{ @errors['meal'] }}</span>
-            </check>
+            <?php if (isset($errors['meal'])): ?>
+                <span class="text-danger"><?= ($errors['meal']) ?></span>
+            <?php endif; ?>
         </div>
 
         <div class="col-xs-3 ">

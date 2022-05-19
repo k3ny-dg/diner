@@ -4,21 +4,36 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-//Start a session
-session_start();
-
-//Require the autoload file
+//Require the necessary files
 require_once('vendor/autoload.php');
 
-//Create an instance of the Base class
+// start a session
+session_start();
+
+/*
+//Test Order class
+$order = new Order();
+$order->setMeal("lunch");
+$order->setFood("bibimbap");
+$order->setCondiments("kimchi");
+var_dump($order);
+*/
+
+// Create an instance of the Base class
 $f3 = Base::instance();
+
+// Create an instance of the controller class
+$con = new Controller($f3);
 
 //Define a default route
 $f3->route('GET /', function() {
-    //echo "Diner project";
 
-    $view = new Template();
-    echo $view->render('views/home.html');
+    // First way
+    //global $con;
+    //$con->home();;
+
+    // Second way
+    $GLOBALS['con']->home();
 });
 
 //Define a breakfast route
@@ -46,40 +61,18 @@ $f3->route('GET /breakfast/brunch', function() {
 });
 
 //Define an order route
-$f3->route('GET /order', function() {
-    //echo "Order page";
-
-    $view = new Template();
-    echo $view->render('views/orderForm1.html');
+$f3->route('GET|POST /order', function($f3) {
+    $GLOBALS['con']->order();
 });
 
 //Define an order2 route
-$f3->route('POST /order2', function() {
-    //echo "Order page";
-
-    //Move orderForm1 data from POST to SESSION
-    var_dump ($_POST);
-    $_SESSION['food'] = $_POST['food'];
-    $_SESSION['meal'] = $_POST['meal'];
-
-    $view = new Template();
-    echo $view->render('views/orderForm2.html');
+$f3->route('GET|POST /order2', function($f3) {
+    $GLOBALS['con']->order2();
 });
 
 //Define a summary route -> orderSummary.html
-$f3->route('POST /summary', function() {
-    //echo "Order page";
-    var_dump ($_POST);
-    if (empty($_POST['conds'])) {
-        $conds = '';
-    }
-    else {
-        $_SESSION['conds'] = implode(", ", $_POST['conds']);
-    }
-    $_SESSION['conds'] = $conds;
-
-    $view = new Template();
-    echo $view->render('views/orderSummary.html');
+$f3->route('GET|POST /summary', function() {
+    $GLOBALS['con']->summary();
 });
 
 //Run fat-free

@@ -1,0 +1,18 @@
+<?php echo $this->render('views/header.html',NULL,get_defined_vars(),0); ?>
+
+<body>
+    <div class="container">
+        <h1>Keny's Diner</h1>
+        <p>Welcome to my diner!</p>
+        <img src="images/diner.jpeg" alt="picture of a diner"><br>
+        <label>Menus</label>
+        <ul>
+            <li><a href="breakfast">Breakfast</a></li>
+            <li><a href="lunch">Lunch</a></li>
+            <li>Dinner</li>
+        </ul>
+        <a href="order"><button class="btn-primary">Place Order</button></a>
+    </div>
+
+</body>
+</html>
